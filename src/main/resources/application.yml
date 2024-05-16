@@ -1,1 +1,18 @@
-spring.application.name=WatchStore
+spring:
+  application:
+    name: WatchStore
+
+  datasource:
+    url: ${db_url}
+    username: ${db_username}
+    password: ${db_password}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: ${server_port}
+
+api:
+  prefix: api/v1
