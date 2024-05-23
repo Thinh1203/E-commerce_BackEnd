@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,8 +27,8 @@ public class WatchDTO {
     @Min(value = 20, message = "Watch's caseDiameter must be greater than 20!")
     private Float caseDiameter;
 
-    @NotBlank(message = "Watch's caseThinkness cannot be empty!")
-    private String caseThinkness;
+    @NotBlank(message = "Watch's caseThickness cannot be empty!")
+    private String caseThickness; // Corrected typo from "caseThinkness" to "caseThickness"
 
     @NotBlank(message = "Watch's strapMaterial cannot be empty!")
     private String strapMaterial;
@@ -52,7 +53,7 @@ public class WatchDTO {
 
     private Integer discount;
 
-    @NotNull(message = "Watch's productName cannot be empty!")
+    @NotNull(message = "Quantity cannot be empty!")
     @Min(value = 1, message = "Quantity must be greater than 0!")
     @Max(value = 100000, message = "Quantity must be less than 100000")
     private Long quantity;
@@ -65,4 +66,13 @@ public class WatchDTO {
 
     @NotNull(message = "CategoryID cannot be empty!")
     private Long categoryID;
+
+    @NotNull(message = "BrandID cannot be empty!")
+    private Long brandID;
+
+    private Boolean isDeleted;
+
+    @NotNull(message = "Thumbnail cannot be empty!")
+    private MultipartFile file;
+
 }
