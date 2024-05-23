@@ -11,6 +11,14 @@ spring:
     hibernate:
       ddl-auto: update
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+file:
+  upload-dir: uploads
+
 server:
   port: ${server_port}
 
