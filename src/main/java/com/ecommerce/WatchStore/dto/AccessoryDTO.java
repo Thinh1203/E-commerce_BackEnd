@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @AllArgsConstructor
@@ -41,5 +42,6 @@ public class AccessoryDTO {
 
     @NotNull(message = "CategoryID cannot be empty!")
     private Long categoryID;
-    
+
+    private MultipartFile file;
 }
