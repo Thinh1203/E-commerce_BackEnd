@@ -24,7 +24,7 @@ public class CategoryController {
     }
 
     @PostMapping("")
-    public ResponseData<?> createCategory( @Valid @RequestBody CategoryDTO categoryDT) {
+    public ResponseData<?> createCategory( @Valid @RequestBody CategoryDTO categoryDTO) {
         return new ResponseData<>(HttpStatus.OK.value(), "Category added successfully! ", 1);
     }
 

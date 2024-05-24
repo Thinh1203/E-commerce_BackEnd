@@ -1,14 +1,16 @@
 package com.ecommerce.WatchStore.dto;
 
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class WatchDTO {
 
     @NotBlank(message = "UserGender cannot be empty!")
@@ -28,7 +30,7 @@ public class WatchDTO {
     private Float caseDiameter;
 
     @NotBlank(message = "Watch's caseThickness cannot be empty!")
-    private String caseThickness; // Corrected typo from "caseThinkness" to "caseThickness"
+    private String caseThickness;
 
     @NotBlank(message = "Watch's strapMaterial cannot be empty!")
     private String strapMaterial;
@@ -72,7 +74,6 @@ public class WatchDTO {
 
     private Boolean isDeleted;
 
-    @NotNull(message = "Thumbnail cannot be empty!")
-    private MultipartFile file;
+    private List<MultipartFile> files;
 
 }

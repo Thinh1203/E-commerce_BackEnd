@@ -21,7 +21,7 @@ public class AccessoryController {
     }
 
     @PostMapping("")
-    public ResponseData<?> createAccessory(@Valid @RequestBody AccessoryDTO accessoryDTO) {
+    public ResponseData<?> createAccessory(@Valid @ModelAttribute AccessoryDTO accessoryDTO) {
         return new ResponseData<>(HttpStatus.CREATED.value(), "Accessory added successfully!", accessoryDTO.getColor());
     }
 
