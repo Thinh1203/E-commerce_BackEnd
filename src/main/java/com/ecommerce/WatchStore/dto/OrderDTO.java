@@ -7,8 +7,10 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDTO {
@@ -38,7 +40,9 @@ public class OrderDTO {
 
     private String shippingAddress;
 
-    private Boolean isDeleted; // xoa mem
+    private Boolean isDeleted;
+
+    private String status;
 
     @NotBlank(message = "Payment method is required")
     private String paymentMethod;

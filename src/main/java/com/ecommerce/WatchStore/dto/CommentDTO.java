@@ -6,8 +6,10 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentDTO {
@@ -19,9 +21,6 @@ public class CommentDTO {
     @NotNull(message = "ProductId cannot be null")
     @Min(value = 1, message = "ProductId must be > 0")
     private Long productId;
-
-    @NotBlank(message = "ProductType cannot be null")
-    private String productType;
 
     @NotNull(message = "Rating star cannot be null")
     @Min(value = 1, message = "Rating star must be > 0")

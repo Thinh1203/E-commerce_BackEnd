@@ -8,12 +8,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class BrandDTO {
-    @NotBlank(message = "Brand's name cannot be null!")
-    private String name;
+@NoArgsConstructor
+public class RoleDTO {
 
-    @NotBlank(message = "Brand's description cannot be null!")
+    @NotBlank(message = "Role cannot be empty")
+    private String role;
+
+    @NotBlank(message = "Description cannot be empty")
     private String description;
 }
