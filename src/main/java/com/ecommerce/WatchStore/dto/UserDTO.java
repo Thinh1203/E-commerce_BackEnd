@@ -8,11 +8,14 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
@@ -20,6 +23,8 @@ public class UserDTO {
     @NotBlank(message = "Email cannot be empty!")
     @Email(message = "email invalid format")
     private String email;
+
+    private MultipartFile avatar;
 
     @NotBlank(message = "numberPhone cannot be empty!")
     @Pattern(regexp = "^\\d{10}$", message = "phone invalid format")
@@ -39,8 +44,8 @@ public class UserDTO {
     @NotBlank(message = "lastName cannot be empty!")
     private String lastName;
 
-    @NotBlank(message = "userGender cannot be empty!")
-    private String userGender;
+    @NotBlank(message = "gender cannot be empty!")
+    private String gender;
 
     @NotNull(message = "RoleID cannot be empty!")
     private Long roleID;
