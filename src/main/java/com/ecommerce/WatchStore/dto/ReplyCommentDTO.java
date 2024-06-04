@@ -8,11 +8,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReplyCommentDTO {
+public class ReplyCommentDTO implements Serializable {
 
     @NotNull(message = "commentId cannot be null")
     @Min(value = 1, message = "commentId must be > 0")
