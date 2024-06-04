@@ -1,4 +1,4 @@
-package com.ecommerce.WatchStore.controller;
+package com.ecommerce.WatchStore.Controller;
 import com.ecommerce.WatchStore.Exception.ResponseData;
 import com.ecommerce.WatchStore.Exception.ResponseError;
 import com.ecommerce.WatchStore.Service.FileSingleUploadService;

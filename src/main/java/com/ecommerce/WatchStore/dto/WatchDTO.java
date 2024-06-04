@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -11,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class WatchDTO {
+public class WatchDTO implements Serializable {
 
     @NotBlank(message = "UserGender cannot be empty!")
     private String userGender;

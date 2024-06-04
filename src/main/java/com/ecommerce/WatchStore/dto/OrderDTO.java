@@ -9,11 +9,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDTO {
+public class OrderDTO implements Serializable {
 
     @Min(value = 1, message = "User's ID must be > 0")
     private Long userId;
