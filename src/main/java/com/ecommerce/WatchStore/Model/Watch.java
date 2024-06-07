@@ -1,7 +1,10 @@
 package com.ecommerce.WatchStore.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -58,13 +61,13 @@ public class Watch {
     @Column(name = "quantity", nullable = false)
     private Long quantity;
 
-    @Column(name = "newProduct")
+    @Column(name = "newProduct", nullable = true)
     private Boolean newProduct;
 
     @Column(name = "productPrice", nullable = false)
     private Integer productPrice;
 
-    @Column(name = "isDeleted")
+    @Column(name = "isDeleted", nullable = true)
     private Boolean isDeleted;
 
     @ManyToOne
@@ -75,6 +78,10 @@ public class Watch {
     @JoinColumn(name = "categoryId", nullable = false)
     private Category category;
 
+    @OneToMany(mappedBy = "watch", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<WatchImage> watchImages;
+
     @PrePersist
     protected void onCreate() {
         if (newProduct == null) {
@@ -82,6 +89,9 @@ public class Watch {
         }
         if (isDeleted == null) {
             isDeleted = false;
+        }
+        if (discount == null) {
+            discount = 0;
         }
     }
 
