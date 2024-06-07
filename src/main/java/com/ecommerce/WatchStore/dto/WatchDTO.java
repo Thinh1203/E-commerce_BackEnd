@@ -1,5 +1,6 @@
 package com.ecommerce.WatchStore.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,18 +38,16 @@ public class WatchDTO implements Serializable {
     private String strapMaterial;
 
     @NotNull(message = "Watch's strapWidth cannot be empty!")
-    @Min(value = 10, message = "Watch's strapWidth must be greater than 10!")
     private Float strapWidth;
 
     @NotBlank(message = "Watch's glassMaterial cannot be empty!")
     private String glassMaterial;
 
-    @NotBlank(message = "Watch's waterResistance cannot be empty!")
-    private String waterResistance;
-
-    @NotNull(message = "WarrantyPeriod cannot be empty!")
-    @Min(value = 1, message = "WarrantyPeriod must be greater than 0!")
+    @NotNull(message = "Watch's warrantyPeriod cannot be empty!")
     private Float warrantyPeriod;
+
+    @NotBlank(message = "waterResistance")
+    private String waterResistance;
 
     @NotBlank(message = "Watch's productName cannot be empty!")
     @Size(min = 5, max = 200, message = "ProductName must be between 5 and 200 characters!")
@@ -67,11 +66,11 @@ public class WatchDTO implements Serializable {
     @Min(value = 100000, message = "Product price must be greater than 100000!")
     private Integer productPrice;
 
-    @NotNull(message = "CategoryID cannot be empty!")
-    private Long categoryID;
+    @NotNull(message = "CategoryId cannot be empty!")
+    private Long categoryId;
 
-    @NotNull(message = "BrandID cannot be empty!")
-    private Long brandID;
+    @NotNull(message = "BrandId cannot be empty!")
+    private Long brandId;
 
     private Boolean isDeleted;
 
