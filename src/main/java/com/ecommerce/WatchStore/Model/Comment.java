@@ -25,4 +25,8 @@ public class Comment extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "watchId", nullable = false)
     private Watch watch;
+
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 }

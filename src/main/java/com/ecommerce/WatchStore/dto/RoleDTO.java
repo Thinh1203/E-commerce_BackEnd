@@ -15,8 +15,6 @@ import java.io.Serializable;
 public class RoleDTO implements Serializable {
 
     @NotBlank(message = "Role cannot be empty")
-    private String role;
+    private String name;
 
-    @NotBlank(message = "Description cannot be empty")
-    private String description;
 }
