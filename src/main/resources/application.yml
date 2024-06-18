@@ -28,3 +28,7 @@ server:
 
 api:
   prefix: api/v1
+
+jwt:
+  expiration: 25292000
+  secretKey: TaEgfxKBnE3mvxjasZ7ouO8zCW530xapKBERcsMLrY8=

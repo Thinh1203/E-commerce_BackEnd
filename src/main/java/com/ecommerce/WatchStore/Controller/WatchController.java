@@ -33,7 +33,7 @@ public class WatchController {
 
 
     @GetMapping("")
-    public ResponseData<ProductResponse> getAllWatch(
+    public ResponseData<?> getAllWatch(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int limit) {
         try {
