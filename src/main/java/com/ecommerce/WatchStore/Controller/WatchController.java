@@ -31,7 +31,6 @@ public class WatchController {
     private final FileSingleUploadService fileSingleUploadService;
     private final WatchService watchService;
 
-
     @GetMapping("")
     public ResponseData<?> getAllWatch(
             @RequestParam(defaultValue = "0") int page,

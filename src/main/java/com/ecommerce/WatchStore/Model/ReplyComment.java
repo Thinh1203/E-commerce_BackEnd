@@ -22,4 +22,8 @@ public class ReplyComment extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "commentId", nullable = false)
     private Comment comment;
+
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 }

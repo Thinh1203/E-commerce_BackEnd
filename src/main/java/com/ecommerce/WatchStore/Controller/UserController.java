@@ -3,6 +3,7 @@ package com.ecommerce.WatchStore.Controller;
 import com.ecommerce.WatchStore.Exception.ResponseData;
 import com.ecommerce.WatchStore.Exception.ResponseError;
 import com.ecommerce.WatchStore.Model.User;
+import com.ecommerce.WatchStore.ResponseData.UserDetailResponse;
 import com.ecommerce.WatchStore.Service.UserService;
 import com.ecommerce.WatchStore.dto.UserDTO;
 import com.ecommerce.WatchStore.dto.UserLoginDTO;
@@ -11,10 +12,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("${api.prefix}/user")
@@ -22,6 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+
+    @GetMapping("/{id}")
+    public ResponseData<?> getOneUser(@PathVariable Long id) {
+        try {
+            UserDetailResponse user = userService.getOneUser(id);
+            return new ResponseData<>(HttpStatus.OK.value(), "User detail: ", user);
+        } catch (IllegalArgumentException e) {
+            return new ResponseError(HttpStatus.NOT_FOUND.value(), e.getMessage());
+        } catch (Exception e) {
+            return new ResponseError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        }
+    }
 
     @PostMapping("/register")
     public ResponseData<?> createUser(@Valid @RequestBody UserDTO userDTO) {

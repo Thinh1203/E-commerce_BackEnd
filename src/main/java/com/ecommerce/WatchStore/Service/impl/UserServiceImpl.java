@@ -5,6 +5,7 @@ import com.ecommerce.WatchStore.Model.Role;
 import com.ecommerce.WatchStore.Model.User;
 import com.ecommerce.WatchStore.Repository.RoleRepository;
 import com.ecommerce.WatchStore.Repository.UserRepository;
+import com.ecommerce.WatchStore.ResponseData.UserDetailResponse;
 import com.ecommerce.WatchStore.Service.UserService;
 import com.ecommerce.WatchStore.dto.UserDTO;
 import jakarta.persistence.EntityNotFoundException;
@@ -34,7 +35,8 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByNumberPhone(checkNumberPhone)) {
             throw new DataIntegrityViolationException("Phone number already exists");
         }
-        Role role = roleRepository.findById(request.getRoleId())
+        Long roleId = request.getRoleId() != null ? request.getRoleId() : 2L;
+        Role role = roleRepository.findById(roleId)
                 .orElseThrow(() -> new EntityNotFoundException("Role not found"));
         User newUser = User.builder()
                 .firstName(request.getFistName())
@@ -73,4 +75,27 @@ public class UserServiceImpl implements UserService {
         authenticationManager.authenticate(authenticationToken);
         return jwtToken.generateToken(existingUser);
     }
+
+    @Override
+    public UserDetailResponse getOneUser(long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return UserDetailResponse.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .numberPhone(user.getNumberPhone())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .gender(user.getGender())
+                .facebookAccountId(user.getFacebookAccountId())
+                .googleAccountId(user.getGoogleAccountId())
+                .birthday(user.getBirthday())
+                .role(user.getRole())
+                .enabled(user.isEnabled())
+                .username(user.getUsername())
+                .credentialsNonExpired(user.isCredentialsNonExpired())
+                .accountNonExpired(user.isAccountNonExpired())
+                .accountNonLocked(user.isAccountNonLocked())
+                .build();
+    }
+
 }

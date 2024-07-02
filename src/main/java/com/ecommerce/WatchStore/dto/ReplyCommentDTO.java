@@ -22,4 +22,8 @@ public class ReplyCommentDTO implements Serializable {
 
     @NotBlank(message = "Content cannot be empty")
     private String content;
+
+    @NotNull(message = "UserId cannot be null")
+    @Min(value = 1, message = "UserId must be > 0")
+    private Long userId;
 }

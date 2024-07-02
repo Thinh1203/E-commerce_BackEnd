@@ -25,8 +25,6 @@ public class UserDTO implements Serializable {
     @Email(message = "email invalid format")
     private String email;
 
-//    private MultipartFile avatar;
-
     @NotBlank(message = "numberPhone cannot be empty!")
     @Pattern(regexp = "^\\d{10}$", message = "phone invalid format")
     private String numberPhone;
