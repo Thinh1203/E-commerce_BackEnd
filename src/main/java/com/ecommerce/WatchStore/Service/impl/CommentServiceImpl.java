@@ -35,6 +35,7 @@ public class CommentServiceImpl implements CommentService {
                 .rating(request.getRating())
                 .build();
         return commentRepository.save(newComment);
+
     }
 
     @Override
