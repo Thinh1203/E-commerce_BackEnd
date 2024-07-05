@@ -1,5 +1,6 @@
 package com.ecommerce.WatchStore.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +22,7 @@ public class ReplyComment extends AbstractEntity{
 
     @ManyToOne
     @JoinColumn(name = "commentId", nullable = false)
+    @JsonBackReference
     private Comment comment;
 
     @ManyToOne

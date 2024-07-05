@@ -21,9 +21,13 @@ public class ReplyCommentController {
 
     private final ReplyCommentService replyCommentService;
 
-    @GetMapping("")
-    public ResponseData<?> getAllComment() {
-        return new ResponseData<>(HttpStatus.OK.value(), "Successfully", "data");
+    @GetMapping("/{id}")
+    public ResponseData<?> getAllReplyComment(@PathVariable Long id) {
+        try {
+            return new ResponseData<>(HttpStatus.OK.value(), "List Comment: ", replyCommentService.getAllReplyComment(id));
+        } catch (Exception e) {
+            return new ResponseError(HttpStatus.NOT_FOUND.value(), e.getMessage());
+        }
     }
 
     @PostMapping("")
@@ -48,20 +52,45 @@ public class ReplyCommentController {
         } catch (EntityNotFoundException e) {
             return new ResponseError(HttpStatus.NOT_FOUND.value(), e.getMessage());
         } catch (Exception e) {
-            return new ResponseError(HttpStatus.BAD_REQUEST.value(), "An unexpected error occurred");
+            return new ResponseError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseData<?> deleteReplyComment(@PathVariable Long id) {
-        return new ResponseData<>(HttpStatus.NO_CONTENT.value(), "Comment deleted successfully!");
+        try {
+            replyCommentService.deleteComment(id);
+            return new ResponseData<>(HttpStatus.NO_CONTENT.value(), "Comment deleted successfully!");
+        } catch (EntityNotFoundException e) {
+            return new ResponseError(HttpStatus.NOT_FOUND.value(), e.getMessage());
+        }catch (Exception e) {
+            return new ResponseError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        }
     }
 
     @PutMapping ("/{id}")
     public ResponseData<?> updateReplyComment(@Valid @RequestBody ReplyCommentDTO replyCommentDTO, @PathVariable Long id) {
-        return new ResponseData<>(HttpStatus.ACCEPTED.value(),
-                "Comment updated successfully!",
-                String.format("Update comment with id = %d, content = %s", id, replyCommentDTO.getContent())
-        );
+        try {
+            ReplyComment updateFeedback = replyCommentService.updateComment(id, replyCommentDTO);
+            Map<String, Object> userMap = new HashMap<>();
+            userMap.put("firstName", updateFeedback.getUser().getFirstName());
+            userMap.put("lastName", updateFeedback.getUser().getLastName());
+            userMap.put("role", Map.of("name", updateFeedback.getUser().getRole().getName()));
+
+            Map<String, Object> feedbackMap = new HashMap<>();
+            feedbackMap.put("createdAt", updateFeedback.getCreatedAt());
+            feedbackMap.put("updatedAt", updateFeedback.getUpdatedAt());
+            feedbackMap.put("content", updateFeedback.getContent());
+            feedbackMap.put("user", userMap);
+            return new ResponseData<>(HttpStatus.ACCEPTED.value(),
+                    "Feedback updated successfully!",
+                    feedbackMap
+            );
+        } catch (EntityNotFoundException e) {
+            return new ResponseError(HttpStatus.NOT_FOUND.value(), e.getMessage());
+        } catch (Exception e) {
+            return new ResponseError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        }
+
     }
 }

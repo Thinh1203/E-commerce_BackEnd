@@ -1,28 +1,26 @@
-package com.ecommerce.WatchStore.Model;
+package com.ecommerce.WatchStore.ResponseData.CommentResponse;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
-@Getter
+@AllArgsConstructor
 @Setter
-@MappedSuperclass
-public abstract class AbstractEntity {
-
-    @Column(name = "created_at")
+@Getter
+@Builder
+@NoArgsConstructor
+public class ReplyCommentResponseDTO {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-
-    @Column(name = "updated_at")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+    private String content;
+    private UserResponseDTO user;
 }

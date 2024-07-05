@@ -3,11 +3,15 @@ package com.ecommerce.WatchStore.Controller;
 import com.ecommerce.WatchStore.Exception.ResponseData;
 import com.ecommerce.WatchStore.Exception.ResponseError;
 import com.ecommerce.WatchStore.Model.Comment;
+import com.ecommerce.WatchStore.ResponseData.CommentResponse.CommentResponse;
+import com.ecommerce.WatchStore.ResponseData.CommentResponse.CommentResponseDTO;
 import com.ecommerce.WatchStore.Service.CommentService;
 import com.ecommerce.WatchStore.dto.CommentDTO;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,16 +26,28 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @GetMapping("/{id}")
-    public ResponseData<?> getAllComment(@PathVariable Long id,
+    @GetMapping("")
+    public ResponseData<?> getAllComment(
         @RequestParam(defaultValue = "0", required = false) int page,
         @RequestParam(defaultValue = "10", required = false) int limit
         ) {
         try {
-//            List<Comment> listComment = commentService.getAllComment();
-            return new ResponseData<>(HttpStatus.OK.value(), "Successfully", "data");
+            PageRequest pageRequest = PageRequest.of(page, limit);
+            Page<CommentResponseDTO> listComment = commentService.getAllComment(pageRequest);
+            int totalPage = listComment.getTotalPages();
+            int currentPage = listComment.getNumber();
+            List<CommentResponseDTO> comments = listComment.getContent();
+            return new ResponseData<>(
+                    HttpStatus.OK.value(),
+                    "List comment: ",
+                    CommentResponse.builder()
+                            .comments(comments)
+                            .currentPage(currentPage)
+                            .totalPages(totalPage)
+                            .build()
+                    );
         } catch (Exception e) {
-            return new ResponseError(HttpStatus.BAD_REQUEST.value(), "An unexpected error occurred");
+            return new ResponseError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         }
     }
 
@@ -55,7 +71,7 @@ public class CommentController {
         } catch (EntityNotFoundException e) {
             return new ResponseError(HttpStatus.NOT_FOUND.value(), e.getMessage());
         } catch (Exception e) {
-            return new ResponseError(HttpStatus.BAD_REQUEST.value(), "An unexpected error occurred");
+            return new ResponseError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         }
     }
 
@@ -67,7 +83,7 @@ public class CommentController {
         } catch (EntityNotFoundException e) {
             return new ResponseError(HttpStatus.NOT_FOUND.value(), e.getMessage());
         }catch (Exception e) {
-            return new ResponseError(HttpStatus.BAD_REQUEST.value(), "An unexpected error occurred");
+            return new ResponseError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         }
     }
 
@@ -91,7 +107,7 @@ public class CommentController {
        } catch (EntityNotFoundException e) {
            return new ResponseError(HttpStatus.NOT_FOUND.value(), e.getMessage());
        } catch (Exception e) {
-           return new ResponseError(HttpStatus.BAD_REQUEST.value(), "An unexpected error occurred");
+           return new ResponseError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
        }
     }
 }
