@@ -12,6 +12,9 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class ReplyCommentServiceImpl implements ReplyCommentService {
@@ -32,5 +35,32 @@ public class ReplyCommentServiceImpl implements ReplyCommentService {
                 .content(request.getContent())
                 .build();
         return replyCommentRepository.save(newComment);
+    }
+
+    @Override
+    public List<ReplyComment> getAllReplyComment(long id) {
+        List<ReplyComment> replyComments = replyCommentRepository.findByCommentId(id);
+        return replyComments;
+    }
+
+    @Override
+    public ReplyComment updateComment(long id, ReplyCommentDTO request) {
+        ReplyComment existingReplyComment = replyCommentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Feedback comment does not exist"));
+        Comment existingComment = commentRepository.findById(request.getCommentId())
+                .orElseThrow(() -> new EntityNotFoundException("Comment not found"));
+        User existingUser = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException ("User not found"));
+        existingReplyComment.setComment(existingComment);
+        existingReplyComment.setUser(existingUser);
+        existingReplyComment.setContent(request.getContent());
+        return replyCommentRepository.save(existingReplyComment);
+    }
+
+    @Override
+    public void deleteComment(long id) {
+        ReplyComment existingFeedBack = replyCommentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Feedback doesn't exist"));
+        replyCommentRepository.delete(existingFeedBack);
     }
 }

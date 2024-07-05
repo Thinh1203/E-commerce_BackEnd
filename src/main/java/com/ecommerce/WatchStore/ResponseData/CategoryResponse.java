@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 public class CategoryResponse {
-    List<Category> categories;
+    private List<Category> categories;
     private int totalPages;
     private int currentPage;
 }

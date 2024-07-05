@@ -36,22 +36,22 @@ public class WebSecurityConfig {
                             .requestMatchers(HttpMethod.POST, String.format("%s/category/**", apiPrefix)).hasRole(Roles.ADMIN)
                             .requestMatchers(HttpMethod.PUT, String.format("%s/category/**", apiPrefix)).hasRole(Roles.ADMIN)
                             .requestMatchers(HttpMethod.DELETE, String.format("%s/category/**", apiPrefix)).hasRole(Roles.ADMIN)
-                            .requestMatchers(HttpMethod.GET, String.format("%s/category**", apiPrefix)).permitAll()
+                            .requestMatchers(HttpMethod.GET, String.format("%s/category/**", apiPrefix)).permitAll()
 
                             .requestMatchers(HttpMethod.POST, String.format("%s/comment/**", apiPrefix)).hasAnyRole(Roles.ADMIN, Roles.MEMBER)
                             .requestMatchers(HttpMethod.PUT, String.format("%s/comment/**", apiPrefix)).hasAnyRole(Roles.ADMIN, Roles.MEMBER)
                             .requestMatchers(HttpMethod.DELETE, String.format("%s/comment/**", apiPrefix)).hasAnyRole(Roles.ADMIN, Roles.MEMBER)
-                            .requestMatchers(HttpMethod.GET, String.format("%s/comment**", apiPrefix)).permitAll()
+                            .requestMatchers(HttpMethod.GET, String.format("%s/comment/**", apiPrefix)).permitAll()
 
                             .requestMatchers(HttpMethod.POST, String.format("%s/replyComment/**", apiPrefix)).hasAnyRole(Roles.ADMIN, Roles.MEMBER)
                             .requestMatchers(HttpMethod.PUT, String.format("%s/replyComment/**", apiPrefix)).hasAnyRole(Roles.ADMIN, Roles.MEMBER)
                             .requestMatchers(HttpMethod.DELETE, String.format("%s/replyComment/**", apiPrefix)).hasAnyRole(Roles.ADMIN, Roles.MEMBER)
-                            .requestMatchers(HttpMethod.GET, String.format("%s/replyComment**", apiPrefix)).hasAnyRole(Roles.ADMIN, Roles.MEMBER)
+                            .requestMatchers(HttpMethod.GET, String.format("%s/replyComment/**", apiPrefix)).hasAnyRole(Roles.ADMIN, Roles.MEMBER)
 
                             .requestMatchers(HttpMethod.POST, String.format("%s/order/**", apiPrefix)).hasRole(Roles.MEMBER)
                             .requestMatchers(HttpMethod.PUT, String.format("%s/order/**", apiPrefix)).hasRole(Roles.ADMIN)
                             .requestMatchers(HttpMethod.DELETE, String.format("%s/order/**", apiPrefix)).hasAnyRole(Roles.ADMIN, Roles.MEMBER)
-                            .requestMatchers(HttpMethod.GET, String.format("%s/order**", apiPrefix)).hasAnyRole(Roles.ADMIN, Roles.MEMBER)
+                            .requestMatchers(HttpMethod.GET, String.format("%s/order/**", apiPrefix)).hasAnyRole(Roles.ADMIN, Roles.MEMBER)
 
                             .requestMatchers(HttpMethod.POST, String.format("%s/orderDetail/**", apiPrefix)).hasRole(Roles.MEMBER)
                             .requestMatchers(HttpMethod.PUT, String.format("%s/orderDetail/**", apiPrefix)).hasRole(Roles.ADMIN)

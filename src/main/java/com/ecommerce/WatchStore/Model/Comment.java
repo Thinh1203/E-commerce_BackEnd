@@ -1,7 +1,10 @@
 package com.ecommerce.WatchStore.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,4 +32,8 @@ public class Comment extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<ReplyComment> replyComments;
 }

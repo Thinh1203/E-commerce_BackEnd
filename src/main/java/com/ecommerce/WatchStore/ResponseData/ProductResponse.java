@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 public class ProductResponse {
-    List<Watch> watches;
+    private List<Watch> watches;
     private int totalPages;
     private int currentPage;
 }
